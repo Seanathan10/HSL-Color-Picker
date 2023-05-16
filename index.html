@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HSL Color Picker - Sean Singh</title>
+</head>
+<body class="body" id="bigbody" onload="SetSliders()">
+    <style>
+        .body {
+            margin: 0;
+            font-family: 'SF Mono';
+            /* background-color: hsl(150, 100%, 50%); */
+            background-color: hsl( 0, 0%, 0% );
+        }
+
+        .wrapper {
+            min-width: 100vw;
+            min-height: 100vh;
+            overflow: hidden;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .ColorPicker {
+            background-color: white;
+            padding: 1rem;
+            margin: 1rem;
+            border-radius: 10px;
+            box-shadow: 0px 0px 50px 10px;
+
+            display: grid;
+            align-items: center;
+            justify-content: center;
+
+            
+        }
+        
+        .sliders {
+            display: grid;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .slider {
+            outline: none;
+            opacity: 0.7;
+            transition: opacity 0.2s;
+            margin-right: 1rem;
+        }
+        
+        .slider:hover {
+            opacity: 1.0;
+        }
+
+        .SliderLabels {
+            display: flex;
+            align-items: center;
+        }
+
+        #HueVal {
+            margin: 0;
+        }
+
+        #SaturationLabel {
+            margin: 0;
+        }
+
+        #LightnessLabel {
+            margin: 0;
+        }
+
+        #NoMargin {
+            margin: 0;
+        }
+    </style>
+
+    <script>
+        var HueValue = 250;
+        var SaturationValue = 100;
+        var LightnessValue = 41;
+
+        
+        function SetSliders() {
+            document.getElementById( "HueSlider" ).value = HueValue;
+            document.getElementById( "SaturationSlider" ).value = SaturationValue;
+            document.getElementById( "LightnessSlider" ).value = LightnessValue;
+
+            SetBG = `hsl( ${HueValue}, ${SaturationValue}%, ${LightnessValue}% )`;
+            document.getElementById( 'bigbody' ).style.backgroundColor = SetBG;
+
+            document.getElementById( "HueVal" ).innerHTML = HueValue;
+            document.getElementById( "SaturationLabel" ).innerHTML = SaturationValue;
+            document.getElementById( "LightnessLabel" ).innerHTML = LightnessValue;
+        }
+
+        var SetBG;
+
+        function HueListener() {
+            HueValue = document.getElementById( "HueSlider" ).value;
+            
+            if( HueValue < 10 ) {
+                HueValue = "00" + HueValue;
+            } else if( HueValue < 100 ) {
+                HueValue = "0" + HueValue;
+            }
+
+            document.getElementById( "HueVal" ).innerHTML = HueValue;
+
+            SetBG = `hsl( ${HueValue}, ${SaturationValue}%, ${LightnessValue}% )`;
+            document.getElementById( 'bigbody' ).style.backgroundColor = SetBG;
+        }
+
+        function SaturationListener() {
+            SaturationValue = document.getElementById( "SaturationSlider" ).value;
+
+            if( SaturationValue < 10 ) {
+                SaturationValue = "00" + SaturationValue;
+            } else if( SaturationValue < 100 ) {
+                SaturationValue = "0" + SaturationValue;
+            }
+
+            document.getElementById( "SaturationLabel" ).innerHTML = SaturationValue;
+
+            SetBG = `hsl( ${HueValue}, ${SaturationValue}%, ${LightnessValue}% )`;
+            document.getElementById( 'bigbody' ).style.backgroundColor = SetBG;
+        }
+
+        function LightnessListener() {
+            LightnessValue = document.getElementById( "LightnessSlider" ).value;
+
+            if( LightnessValue < 10 ) {
+                LightnessValue = "00" + LightnessValue;
+            } else if( LightnessValue < 100 ) {
+                LightnessValue = "0" + LightnessValue;
+            }
+
+            document.getElementById( "LightnessLabel" ).innerHTML = LightnessValue;
+
+            SetBG = `hsl( ${HueValue}, ${SaturationValue}%, ${LightnessValue}% )`;
+            document.getElementById( 'bigbody' ).style.backgroundColor = SetBG;
+        }
+    </script>
+
+    <div class="wrapper">
+        <div class="ColorPicker">
+            <div class="sliders">
+                <div class="SliderLabels">
+                    <!-- <input class="slider" id='HueSlider' type="range" min="0" max="359" oninput="this.nextElementSibling.value = this.value"> -->
+                    <input class="slider" id='HueSlider' type="range" min="0" max="359" oninput=HueListener() >
+                    <p id="HueVal">000</p>
+                    <p id="NoMargin">&nbsp(Hue)</p>
+                    <!-- <output>0</output> -->
+                    <!-- <label>&nbsp(Hue)</label> -->
+                </div>
+                <div class="SliderLabels">
+                    <!-- <input class="slider" id='SaturationSlider' type="range" min="0" max="100" oninput="this.nextElementSibling.value = this.value"> -->
+                    <input class="slider" id='SaturationSlider' type="range" min="0" max="100" oninput=SaturationListener() >
+                    <p id="SaturationLabel">000</p>
+                    <p id="NoMargin">&nbsp(Saturation)</p>
+                    <!-- <output>0</output>
+                    <label>&nbsp(Saturation)</label> -->
+                </div>
+                <div class="SliderLabels">
+                    <!-- <input class="slider" id='LightnessSlider' type="range" min="0" max="100" oninput="this.nextElementSibling.value = this.value"> -->
+                    <input class="slider" id='LightnessSlider' type="range" min="0" max="100" oninput=LightnessListener() >
+                    <p id="LightnessLabel">000</p>
+                    <p id="NoMargin">&nbsp(Lightness)</p>
+                    <!-- <output>0</output>
+                    <label>&nbsp(Lightness)</label> -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
+
